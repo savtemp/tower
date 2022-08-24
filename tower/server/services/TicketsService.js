@@ -8,8 +8,8 @@ class TicketsService{
     async create(newTicket){
         const event = await dbContext.Events.findById(newTicket.eventId)
         // @ts-ignore
-        if (event.capacity == 0 ) {
-            throw new Forbidden("There are no more spots")
+        if (event.capacity <= 0 ) {
+            throw new BadRequest("There are no more spots")
         }
         const ticket = await dbContext.Tickets.create(newTicket)
         await ticket.populate('profile')
@@ -43,6 +43,9 @@ class TicketsService{
         const ticket = await dbContext.Tickets.findById(ticketId)
         if(!ticket){
             throw new BadRequest('no ticket at that id')
+        }
+        if(ticket.accountId != userId){
+            throw new Forbidden('You cannot remove a ticket of another user')
         }
         await ticket.remove()
         return 'ticket removed'
