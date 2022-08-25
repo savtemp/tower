@@ -14,7 +14,7 @@ class TowerEventsService{
     async getById(id){
         const res = await api.get(`api/events/` + id)
         logger.log('Get event by Id', res.data)
-        AppState.activeTowerEvent.res.data
+        AppState.activeTowerEvent = res.data
     }
 
     async createEvent(newEvent){
