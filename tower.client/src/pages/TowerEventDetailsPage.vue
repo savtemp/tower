@@ -117,7 +117,7 @@ export default {
             eventTickets: computed(() => AppState.eventTickets),
             isAttending: computed(()=> AppState.myTickets.find(t=> t.eventId == route.params.eventId)),
 
-            // FIXME this needs to be hidden when not logged in 
+            // FIXME this needs to be hidden when not logged in and when event is full 
             async createTicket(){
                 try {
                     let newTicket = {

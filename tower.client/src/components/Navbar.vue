@@ -27,6 +27,9 @@
           </router-link>
         </li>
       </ul>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-event">
+        Create Event
+      </button>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
