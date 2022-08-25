@@ -6,10 +6,7 @@
   <main>
     <router-view />
   </main>
-  <div>
-    <Navbar />
-  </div>
-  
+    
 </template>
 
 <script>
