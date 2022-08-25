@@ -17,6 +17,12 @@ class CommentsService {
         logger.log('Comments', res.data)
         AppState.comments = res.data
     }
+
+    async deleteCommentByCommentId(commentId){
+        const res = await api.delete(`api/comments/${commentId}`)
+        logger.log('removing comment', res.data)
+        AppState.comments = AppState.comments.filter(c => c.id != commentId)
+    }
 }
 
 

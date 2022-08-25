@@ -10,7 +10,7 @@
                 <p>{{comment.body}}</p>
             </div>
             <div class="col-2 text-end">
-                <button class="btn btn-danger">Delete Comment</button>
+                <button class="btn btn-danger" @click="deleteCommentByCommentId(comment.id)" >Delete Comment</button>
             </div>
         </div>
     </div>
@@ -18,11 +18,32 @@
 
 
 <script>
+import { ref } from 'vue';
+import { commentsService } from '../services/CommentsService.js';
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
+
 export default {
     props: {comment: {type: Object, required: true}},
 
-    setup(){
-        return{}
+    setup(props){
+        const deleting = ref(false)
+
+        return{
+            deleting,
+
+            async deleteCommentByCommentId(commentId){
+                try {
+                    const yes = await Pop.confirm('Delete this comment?')
+                    if(!yes){return}
+                    await commentsService.deleteCommentByCommentId(commentId)
+                } catch (error) {
+                    logger.error('deleting comment')
+                    Pop.error(error)
+                }
+            }
+        }
+
     }
 }
 </script>
