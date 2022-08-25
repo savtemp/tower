@@ -51,7 +51,7 @@ Create Event
                     <textarea class="form-control" name="description" id="" cols="30" rows="8" placeholder="Tell us about the event ..." v-model="editable.description"></textarea>
                 </div>
                 <div class="col-12 my-3">
-                    <button type="button" class="btn btn-success" @click="handleSubmit">Submit</button>
+                    <button type="button" class="btn btn-success" @click="handleSubmit" data-bs-dismiss="modal">Submit</button>
                 </div>
             </form>
         </div>
@@ -70,6 +70,7 @@ Create Event
 
 <script>
 import { ref } from 'vue';
+import { router } from '../router.js';
 import { towerEventsService } from '../services/TowerEventsService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
@@ -84,8 +85,9 @@ export default {
             async handleSubmit(){
                 try {
                     logger.log('creating event', editable.value)
-                    await towerEventsService.createEvent(editable.value)
+                    const event = await towerEventsService.createEvent(editable.value)
                     Pop.toast('Event Created')
+                    router.push({name: 'TowerEventDetails', params:{eventId: event.id }})
                 } catch (error) {
                     Pop.error(error)
                 }

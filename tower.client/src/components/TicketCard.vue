@@ -13,13 +13,7 @@ export default {
     props: {ticket: {type: Object, required: true}},
     setup(props){
         return{
-            // async removeTicket(){
-            //     try {
-            //         await ticketsService.removeTicket(props.ticket.id)
-            //     } catch (error) {
-            //         Pop.error(error)
-            //     }
-            // }
+
         }
 }
 }
