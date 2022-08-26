@@ -16,7 +16,7 @@
                                 <p class="m-0">{{event.location}}</p>
                             </div>
                             <div class="col-5 text-end">
-                                <p class="m-0">{{new Date(event.startDate).toLocaleDateString('en-US')}}</p>
+                                <p class="mt-3">{{new Date(event.startDate).toLocaleDateString('en-US')}}</p>
                             </div>
                         </div>
 
