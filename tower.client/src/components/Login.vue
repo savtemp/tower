@@ -9,10 +9,10 @@
     </button>
 
     <div class="col-1 dropdown my-2 my-lg-0 mx-2" v-else>
+      <!-- aria-expanded="false" -->
       <div
         class="dropdown-toggle selectable"
         data-bs-toggle="dropdown"
-        aria-expanded="false"
         id="authDropdown"
       >
         <div v-if="account.picture || user.picture">

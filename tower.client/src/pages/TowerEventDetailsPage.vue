@@ -12,7 +12,7 @@
                     <div class="col-7 text-light p-3">
                         <div class="row p-2 justify-content-between">
                             <div class="col-7 p-2">
-                                <h5>{{event.name}}</h5>
+                                <div class="fs-4">{{event.name}}</div>
                                 <p class="m-0">{{event.location}}</p>
                             </div>
                             <div class="col-5 text-end">
@@ -30,17 +30,14 @@
                             <div class="col-6 my-2">
                                 <p class="m-0">{{event.capacity}} <span> spots left</span></p>
                             </div>
-                            <!-- FIXME v-if="account.name" -->
-                            <div class="col-6 my-2 text-end">
-                                <!-- add a v-if onto the button -->
-                                <button v-if="isAttending" class="btn btn-danger w-70" @click="removeTicket">Remove</button>
-                                <button v-if="!isAttending" class="btn btn-warning w-70" @click="createTicket">Attend</button>
+                            <div class="col-6 my-2 text-end" v-if="account.id && event.capacity != 0">
+                                <button v-if="isAttending" class="btn btn-danger w-70" @click="removeTicket" title="Leave Event"><i class=" fs-4 mdi mdi-exit-run"></i></button>
+                                <button v-if="!isAttending" class="btn btn-warning w-70" @click="createTicket" title="Attend Event"><i class=" fs-4 mdi mdi-human-greeting"></i></button>
                             </div>   
                         </div>
                     </div>
                     
-                    <!-- FIXME v-if="event.creator.id == account.id" -->
-                    <div class="col-12 my-2">
+                    <div class="col-12 my-2" v-if="account.id == event.creatorId && event.isCanceled != true">
                         <button class="btn btn-danger" @click="cancelEvent(event.id)">Cancel Event</button>
                     </div>
                 </div>    
@@ -68,11 +65,10 @@
 
         <div class="col-10 rounded bg-secondary">
             <div class="row rounded-top p-3">
-                <div class="text-success text-end">
+                <div class="text-dark text-end">
                     <p class="m-0">Join the conversation</p>
                 </div>
-                <!-- FIXME v-if="account.name" -->
-                <div class="text-center">
+                <div class="text-center" v-if="account.id">
                     <CommentForm />
                 </div>
             </div>
@@ -135,8 +131,8 @@ export default {
             comments: computed(() => AppState.comments),
             eventTickets: computed(() => AppState.eventTickets),
             isAttending: computed(()=> AppState.myTickets.find(t=> t.eventId == route.params.eventId)),
+            account: computed(() => AppState.account),
 
-            // FIXME this needs to be hidden when not logged in and when event is full 
             async createTicket(){
                 try {
                     let newTicket = {

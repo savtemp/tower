@@ -26,7 +26,7 @@ export default {
     width: 3rem;
     object-fit: cover;
     object-position: center;
-    border-radius: 50px;
-    border: #B6D369 solid 2px;
+    border-radius: 50%;
+    border: #e27500 solid 2px;
 }
 </style>

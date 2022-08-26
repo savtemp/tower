@@ -5,13 +5,13 @@
 
   <div class="row py-3 justify-content-center">
     <div class="col-11">
-      <div class="row d-flex bg-secondary rounded text-light text-center">
-        <div class="col-2 p-3 selectable no-select" @click="filterTerm = ''">All</div>
-        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'concert'">Concert</div>
-        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'convention'">Convention</div>
-        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'sport'">Sport</div>
-        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'digital'">Digital</div>
-        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'misc'">Misc</div>
+      <div class="row d-flex bg-secondary rounded text-dark text-center">
+        <div class="col-2 p-3 hover-filter selectable no-select" @click="filterTerm = ''">All</div>
+        <div class="col-2 p-3 hover-filter selectable no-select" @click="filterTerm = 'concert'">Concert</div>
+        <div class="col-2 p-3 hover-filter selectable no-select" @click="filterTerm = 'convention'">Convention</div>
+        <div class="col-2 p-3 hover-filter selectable no-select" @click="filterTerm = 'sport'">Sport</div>
+        <div class="col-2 p-3 hover-filter selectable no-select" @click="filterTerm = 'digital'">Digital</div>
+        <div class="col-2 p-3 hover-filter selectable no-select" @click="filterTerm = 'misc'">Misc</div>
       </div>
     </div>
   </div>
@@ -63,5 +63,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.hover-filter:hover{
+  color: #e27500;
+  border-bottom: solid 4px #fd9a30;
+}
 
 </style>

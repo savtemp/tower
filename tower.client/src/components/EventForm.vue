@@ -9,36 +9,36 @@ Create Event
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Event</h5>
+        <h5 class="modal-title text-dark" id="exampleModalLabel">Create Your Event!</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-        <div class="modal-body">
-        <form @submit.prevent="handleSubmit" class="row bg-white p-4 elevation-2">
-                <div class="col-12">What are the details?</div>
+        <div class="modal-body text-dark p-0">
+        <form @submit.prevent="handleSubmit" class="row p-3">
+                <div class="col-12 pb-3">What are the details?</div>
                 <div class="col-6">
                     <label for="" class="form-label">Name</label>
-                    <input type="text" v-model="editable.name" class="form-control" name="name" id="name">
+                    <input type="text" required="true" v-model="editable.name" class="form-control" name="name" id="name">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Cover Image</label>
-                    <input type="url" v-model="editable.coverImg" class="form-control" name="coverImg" id="coverImg"
+                    <input type="url" required="true" v-model="editable.coverImg" class="form-control" name="coverImg" id="coverImg"
                 aria-describedby="helpId" placeholder="">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Start Date</label>
-                    <input type="date" v-model="editable.startDate" class="form-control" name="startDate" id="startDate">
+                    <input type="date" required="true" v-model="editable.startDate" class="form-control" name="startDate" id="startDate">
                 </div>
                 <div class="col-6">
-                    <label for="" class="form-label">location</label>
-                    <input type="text" v-model="editable.location" class="form-control" name="location" id="location">
+                    <label for="" class="form-label">Location</label>
+                    <input type="text" required="true" v-model="editable.location" class="form-control" name="location" id="location">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Capacity</label>
-                    <input type="number" v-model="editable.capacity" class="form-control" name="capacity" id="capacity">
+                    <input type="number" required="true" v-model="editable.capacity" class="form-control" name="capacity" id="capacity">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label ">Category</label>
-                    <select v-model="editable.category" name="" id="" class="form-control">
+                    <select required="true" v-model="editable.category" name="" id="" class="form-control">
                         <option value="concert">Concert</option>
                         <option value="convention">Convention</option>
                         <option value="sport">Sport</option>

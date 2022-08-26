@@ -1,5 +1,5 @@
 <template>
-        <div class="row d-flex justify-content-between">
+        <div class="row d-flex justify-content-between p-2">
             <div class="col-2 text-center">
                 <img class="img-fluid user-img" :src="comment.creator.picture" alt="" :title="comment.creator.name">
             </div>
@@ -13,8 +13,8 @@
                     </div>
 
                     <div class="row p-2">
-                        <div class="col-12 pt-2 m-2">
-                            <button class="btn btn-danger" @click="deleteCommentByCommentId(comment.id)" >Delete Comment</button>
+                        <div class="col-12 pt-2 m-2" v-if="comment.creator.id == account.id">
+                            <button class="btn btn-danger" @click="deleteCommentByCommentId(comment.id)" title="Delete Comment"><i class="mdi mdi-trash-can"></i></button>
                         </div>
                     </div>
             </div>
@@ -23,7 +23,9 @@
 
 
 <script>
+import { computed } from '@vue/reactivity';
 import { ref } from 'vue';
+import { AppState } from '../AppState.js';
 import { commentsService } from '../services/CommentsService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
@@ -36,6 +38,8 @@ export default {
 
         return{
             deleting,
+            comments: computed(() => AppState.comments),
+            account: computed(() => AppState.account),
 
             async deleteCommentByCommentId(commentId){
                 try {
@@ -61,6 +65,6 @@ export default {
     object-fit: cover;
     object-position: center;
     border-radius: 50px;
-    border: #B6D369 solid 2px;
+    border: #e27500 solid 2px;
 }
 </style>

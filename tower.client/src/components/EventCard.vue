@@ -1,9 +1,9 @@
 <template>
 <div class="row justify-content-around">
-    <router-link class="col-10 bg-secondary rounded p-1" :to="{name: 'TowerEventDetails', params:{eventId: event.id}}">
+    <router-link class="col-10 bg-warning rounded p-1 selectable no-select" :to="{name: 'TowerEventDetails', params:{eventId: event.id}}">
     <div class="hero-img rounded" :style="`background-image: url(${event.coverImg})`">
         <div class="text">
-            <h6><b>{{event.name}}</b></h6>
+            <div class="fs-5"><b>{{event.name}}</b></div>
             <p class="m-0">{{event.location}}</p>
             <p class="m-0">{{new Date(event.startDate).toLocaleDateString('en-US')}}</p>
             <p class="m-0 text-end">{{event.capacity}}<span> spots left</span> </p>
