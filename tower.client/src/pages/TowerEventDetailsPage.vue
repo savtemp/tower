@@ -2,7 +2,7 @@
 <!-- SECTION Event stuff -->
     <div class="row justify-content-center" :class="event.isCanceled ? 'is-canceled' : ''">
         <div class="col-11 box-border p-0 elevation-5">
-            <div class="hero-img" :style="`background-image: url(${event.coverImg})`">
+            <div class="hero-img p-3 d-flex justify-content-center" :style="`background-image: url(${event.coverImg})`">
                 
                 <div class="row m-0 bg-text justify-content-between">
                     <div class="col-5 p-2">
@@ -197,7 +197,8 @@ export default {
     // top: 50%;
     // left: 50%;
     width: 93%;
-    transform: translate(2em, 1.3em);
+    // transform: translate(2em, 2.5em);
+    min-height: 50vh;
 
 }
 
@@ -205,7 +206,7 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 60vh;
+    min-height: 70vh;
     // margin: 1em;
 }
 .is-canceled{

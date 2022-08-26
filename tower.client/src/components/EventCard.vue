@@ -44,6 +44,10 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 28vh;
+    
+    &:hover{
+        transform: translateY(-3px);
+    }
 }
 
 .text{
@@ -55,9 +59,10 @@ a {
     color: white;
     border-radius: 8px;
     padding: 0.5em;
-    transform: translateY(6.3em);
+    transform: translateY(5.3em);
     // width: 50em;
-    height: 16vh;
+    height: 18vh;
     text-shadow: 10px 10px 10px black;
+    transition: all .15s linear;
 }
 </style>
