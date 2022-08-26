@@ -21,7 +21,7 @@
     </div>
 
     <div class="container-fluid right-bar text-center bg-secondary">
-      <div class="row d-flex flex-column align-items-center h-100">
+      <div class="row d-flex flex-column align-items-center right-bar">
         <div class="col-12 text-center">
           <Login />
         </div>

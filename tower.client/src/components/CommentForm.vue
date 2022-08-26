@@ -1,8 +1,8 @@
 <template>
 <div class="row">
     <form @submit.prevent="handleSubmit">
-        <div>
-            <textarea class="form-control" name="body" id="" cols="30" rows="8" placeholder="Tell the people ..." v-model="editable.body"></textarea>
+        <div class="p-2 my-2">
+            <textarea class="form-control elevation-3" name="body" id="" cols="30" rows="8" placeholder="Tell the people ..." v-model="editable.body"></textarea>
         </div>
         <div class="text-end">
             <button class="btn btn-success" type="submit">Post Comment</button>

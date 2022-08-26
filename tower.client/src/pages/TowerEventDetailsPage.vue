@@ -1,71 +1,87 @@
 <template>
- <!-- SECTION Event stuff -->
-    <div class="container" :class="event.isCanceled ? 'is-canceled' : ''">
-        <div class="row">
-            <div class="col-3">
-                <img class="img-fluid"  :src="event.coverImg" alt="">
-            </div>
-            <div class="col-6 text-dark">
-                <div class="row">
-                    <div class="col-6">
-                        <h2>{{event.name}}</h2>
-                        <p>{{event.location}}</p>
+<!-- SECTION Event stuff -->
+    <div class="row justify-content-center" :class="event.isCanceled ? 'is-canceled' : ''">
+        <div class="col-11 box-border p-0 elevation-5">
+            <div class="hero-img" :style="`background-image: url(${event.coverImg})`">
+                
+                <div class="row m-0 bg-text justify-content-between">
+                    <div class="col-5 p-2">
+                        <img class="img-fluid" :src="event.coverImg" alt="">
                     </div>
-                    <div class="col-6">
-                        <p>{{event.startDate}}</p>
+
+                    <div class="col-7 text-light p-3">
+                        <div class="row p-2 justify-content-between">
+                            <div class="col-7 p-2">
+                                <h5>{{event.name}}</h5>
+                                <p class="m-0">{{event.location}}</p>
+                            </div>
+                            <div class="col-5 text-end">
+                                <p class="m-0">{{new Date(event.startDate).toLocaleDateString('en-US')}}</p>
+                            </div>
+                        </div>
+
+                        <div class="row p-3">
+                            <div class="col-12">
+                                <p class="m-0">{{event.description}}</p>
+                            </div>
+                        </div>
+
+                        <div class="row p-3 justify-content-baseline">
+                            <div class="col-6 my-2">
+                                <p class="m-0">{{event.capacity}} <span> spots left</span></p>
+                            </div>
+                            <!-- FIXME v-if="account.name" -->
+                            <div class="col-6 my-2 text-end">
+                                <!-- add a v-if onto the button -->
+                                <button v-if="isAttending" class="btn btn-danger w-70" @click="removeTicket">Remove</button>
+                                <button v-if="!isAttending" class="btn btn-warning w-70" @click="createTicket">Attend</button>
+                            </div>   
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <p>{{event.description}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <p>{{event.capacity}} <span> spots left</span></p>
-                    </div>
-                    <div class="col-6">
-                        <!-- add a v-if onto the button -->
-                        <button v-if="isAttending" class="btn btn-danger w-70" @click="removeTicket">Remove</button>
-                        <button v-if="!isAttending" class="btn btn-warning w-70" @click="createTicket">Attend</button>
-                    </div>
-                    <div class="offset-6 col-6">
+                    
+                    <!-- FIXME v-if="event.creator.id == account.id" -->
+                    <div class="col-12 my-2">
                         <button class="btn btn-danger" @click="cancelEvent(event.id)">Cancel Event</button>
                     </div>
-                </div>
+                </div>    
             </div>
         </div>
-    </div>
+
 
 
     <!-- SECTION Tickets stuff -->
-    <div class="row justify-content-center">
-        <div class="col-10 bg-secondary">
-            <p>See who is attending</p>
+    <div class="row my-5 justify-content-center">
+        <div class="col-11 bg-dark">
+            <p class="text-light">See who is attending</p>
         </div>
-        <div class="col-10 bg-primary d-flex">
+        <div class="col-11 rounded bg-secondary d-flex">
             <!-- <p>Theres definitely people in here hopefully</p> -->
             <TicketCard :ticket="t" v-for="t in eventTickets" :key="t.id" />
         </div>
     </div>
 
     <!-- SECTION Comments stuff -->
-    <div class="row justify-content-center">
-        <div class="col-10 bg-secondary">
-            <p>What are people saying</p>
+    <div class="row rounded justify-content-center">
+        <div class="col-10 bg-dark">
+            <p class="text-light">What are people saying</p>
         </div>
-        <div class="col-10 bg-primary">
-            <div class="text-end">
-                <p>Join the conversation</p>
+
+        <div class="col-10 rounded bg-secondary">
+            <div class="row rounded-top p-3">
+                <div class="text-success text-end">
+                    <p class="m-0">Join the conversation</p>
+                </div>
+                <!-- FIXME v-if="account.name" -->
+                <div class="text-center">
+                    <CommentForm />
+                </div>
             </div>
-            <div class="text-center">
-                <CommentForm />
+            <div class="row p-3">
+                <CommentCard :comment="c" v-for="c in comments" :key="c.id" /> 
             </div>
-        </div>
-        <div class="col-10">
-            <CommentCard :comment="c" v-for="c in comments" :key="c.id" /> 
         </div>
     </div>
+</div>
 </template>
 
 
@@ -136,6 +152,8 @@ export default {
 
             async removeTicket(){
                 try {
+                    const yes = await Pop.confirm('Are you sure you do not want to attend this event?')
+                    if(!yes){return}
                     let ticketToRemove = AppState.myTickets.find(t => t.eventId == AppState.activeTowerEvent.id)
                     // Logs that ticketToRemove is undefined 
                     logger.log(ticketToRemove) 
@@ -164,6 +182,36 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.box-border{
+    box-shadow: 0 1px 5px black;
+    border: solid 1px black;
+    box-sizing: border-box;
+}
+
+.bg-text{
+    background: rgb(0 0 0 / 38%);
+    backdrop-filter: blur(4px);
+    border: solid #8d8b8b1f;
+    color: white;
+    border-radius: 8px;
+    text-shadow: 10px 10px 10px black;
+    padding: 0.5em;
+    // position: relative;
+    // top: 50%;
+    // left: 50%;
+    width: 93%;
+    transform: translate(2em, 1.3em);
+
+}
+
+.hero-img{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 60vh;
+    // margin: 1em;
+}
 .is-canceled{
     filter: grayscale(1);
     pointer-events: none;

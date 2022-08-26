@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-        <img class="img-fluid mx-2" :src="ticket.profile.picture" alt="" :title="ticket.profile.name">
+    <div class="p-2">
+        <img class="img-fluid user-img px-1" :src="ticket.profile.picture" alt="" :title="ticket.profile.name">
     </div>
 </template>
 
@@ -21,4 +21,12 @@ export default {
 
 
 <style lang="scss" scoped>
+.user-img{
+    height: 3rem;
+    width: 3rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50px;
+    border: #B6D369 solid 2px;
+}
 </style>

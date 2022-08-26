@@ -1,19 +1,24 @@
 <template>
-    <div class="row elevation-2">
-        <div class="d-flex justify-content-between">
-            <div class="col-3">
-                <img class="img-fluid" :src="comment.creator.picture" alt="" :title="comment.creator.name">
+        <div class="row d-flex justify-content-between">
+            <div class="col-2 text-center">
+                <img class="img-fluid user-img" :src="comment.creator.picture" alt="" :title="comment.creator.name">
             </div>
-            <div class="col-5">
-                <p>{{comment.creator.name}}</p>
-                <!-- <p>Attending event</p> -->
-                <p>{{comment.body}}</p>
-            </div>
-            <div class="col-2 text-end">
-                <button class="btn btn-danger" @click="deleteCommentByCommentId(comment.id)" >Delete Comment</button>
+            <div class="col-10 rounded elevation-3 bg-light text-dark d-flex justify-content-between p-0">
+                    <div class="row p-2">
+                        <div class="col-12">
+                            <p>{{comment.creator.name}}</p>
+                            <!-- <p>Attending event</p> -->
+                            <p>{{comment.body}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row p-2">
+                        <div class="col-12 pt-2 m-2">
+                            <button class="btn btn-danger" @click="deleteCommentByCommentId(comment.id)" >Delete Comment</button>
+                        </div>
+                    </div>
             </div>
         </div>
-    </div>
 </template>
 
 
@@ -50,4 +55,12 @@ export default {
 
 
 <style lang="scss" scoped>
+.user-img{
+    height: 5rem;
+    width: 5rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50px;
+    border: #B6D369 solid 2px;
+}
 </style>
