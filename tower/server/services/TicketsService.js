@@ -40,15 +40,22 @@ class TicketsService{
     }
 
     async remove(ticketId, userId){
-        const ticket = await dbContext.Tickets.findById(ticketId)
-        if(!ticket){
+        const foundTicket = await dbContext.Tickets.findById(ticketId)
+        // @ts-ignore
+        const event = await dbContext.Events.findById(foundTicket.eventId)
+        
+        if(!foundTicket){
             throw new BadRequest('no ticket at that id')
         }
-        if(ticket.accountId != userId){
+        if(foundTicket.accountId != userId){
             throw new Forbidden('You cannot remove a ticket of another user')
         }
-        await ticket.remove()
-        return 'ticket removed'
+        await foundTicket.remove()
+        // @ts-ignore
+        event.capacity += 1
+        // @ts-ignore
+        event.save()
+        return event
     }
 }
 
