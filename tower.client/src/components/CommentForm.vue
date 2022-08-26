@@ -2,7 +2,7 @@
 <div class="row">
     <form @submit.prevent="handleSubmit">
         <div>
-            <textarea name="body" id="" cols="30" rows="8" placeholder="Tell the people ..." v-model="editable.body"></textarea>
+            <textarea class="form-control" name="body" id="" cols="30" rows="8" placeholder="Tell the people ..." v-model="editable.body"></textarea>
         </div>
         <div class="text-end">
             <button class="btn btn-success" type="submit">Post Comment</button>

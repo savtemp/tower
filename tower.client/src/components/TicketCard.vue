@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <img class="img-fluid mx-2" :src="ticket.profile.picture" alt="">
+        <img class="img-fluid mx-2" :src="ticket.profile.picture" alt="" :title="ticket.profile.name">
     </div>
 </template>
 

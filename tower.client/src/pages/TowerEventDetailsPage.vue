@@ -1,9 +1,9 @@
 <template>
  <!-- SECTION Event stuff -->
-    <div class="container">
+    <div class="container" :class="event.isCanceled ? 'is-canceled' : ''">
         <div class="row">
             <div class="col-3">
-                <img class="img-fluid" :src="event.coverImg" alt="">
+                <img class="img-fluid"  :src="event.coverImg" alt="">
             </div>
             <div class="col-6 text-dark">
                 <div class="row">
@@ -28,6 +28,9 @@
                         <!-- add a v-if onto the button -->
                         <button v-if="isAttending" class="btn btn-danger w-70" @click="removeTicket">Remove</button>
                         <button v-if="!isAttending" class="btn btn-warning w-70" @click="createTicket">Attend</button>
+                    </div>
+                    <div class="offset-6 col-6">
+                        <button class="btn btn-danger" @click="cancelEvent(event.id)">Cancel Event</button>
                     </div>
                 </div>
             </div>
@@ -140,6 +143,17 @@ export default {
                 } catch (error) {
                     Pop.error(error)
                 }
+            },
+
+            async cancelEvent(id){
+                try {
+                    const yes = await Pop.confirm('Cancel your event?')
+                    if(!yes){return}
+                    await towerEventsService.cancelEvent(id)
+                } catch (error) {
+                    logger.log('cancelling event')
+                    Pop.error(error)
+                }
             }
         };
         
@@ -150,4 +164,9 @@ export default {
 
 
 <style lang="scss" scoped>
+.is-canceled{
+    filter: grayscale(1);
+    pointer-events: none;
+    cursor: not-allowed;
+}
 </style>

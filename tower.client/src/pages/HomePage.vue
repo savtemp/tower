@@ -1,25 +1,31 @@
 <template>
-  <div class="container-fluid">
-    <div class="row bg-dark py-1 px-5 text-light">
-      <div class="col-12">
-        <h2>Events</h2>
-      </div>
-      <div class="col-12">
-        filter <i class="mdi mdi-filter"></i>
-      </div>
-      <div class="col-2 btn btn-outline-light rounded-pill" @click="filterTerm = ''">All</div>
-      <div class="col-2 btn btn-outline-light rounded-pill" @click="filterTerm = 'concert'">Concert</div>
-      <div class="col-2 btn btn-outline-light rounded-pill" @click="filterTerm = 'convention'">Convention</div>
-      <div class="col-2 btn btn-outline-light rounded-pill" @click="filterTerm = 'sport'">Sport</div>
-      <div class="col-2 btn btn-outline-light rounded-pill" @click="filterTerm = 'digital'">Digital</div>
-      <div class="col-2 btn btn-outline-light rounded-pill" @click="filterTerm = 'misc'">Misc</div>
-    </div>
-    <div class="row bg-dark">
-      <div class="col-3 my-2" v-for="e in events" :key="e.id">
-        <EventCard :event="e" />
+  <div class="row justify-content-center">
+    <HeroImage />
+  </div>
+
+  <div class="row py-3 justify-content-center">
+    <div class="col-11">
+      <div class="row d-flex bg-secondary rounded text-light text-center">
+        <div class="col-2 p-3 selectable no-select" @click="filterTerm = ''">All</div>
+        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'concert'">Concert</div>
+        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'convention'">Convention</div>
+        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'sport'">Sport</div>
+        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'digital'">Digital</div>
+        <div class="col-2 p-3 selectable no-select" @click="filterTerm = 'misc'">Misc</div>
       </div>
     </div>
   </div>
+
+  <div class="row justify-content-center bg-dark text-light">
+    <div class="col-11">
+      <div class="row justify-content-around">
+        <div class="col-3 m-2" v-for="e in events" :key="e.id">
+          <EventCard :event="e" />
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -29,6 +35,7 @@ import {towerEventsService} from '../services/TowerEventsService.js'
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState.js';
 import EventCard from '../components/EventCard.vue';
+import HeroImage from '../components/HeroImage.vue';
 
 export default {
   name: "Home",
@@ -51,7 +58,7 @@ export default {
             events: computed(() => AppState.towerEvents.filter(e => filterTerm.value ? e.type == filterTerm.value : true))
         };
     },
-    components: { EventCard }
+    components: { EventCard, HeroImage }
 }
 </script>
 

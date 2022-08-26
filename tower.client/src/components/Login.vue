@@ -1,14 +1,14 @@
 <template>
-  <span class="navbar-text">
+  <span class="container-fluid navbar-text">
     <button
-      class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
+      class="btn btn-success selectable text-dark lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
       v-if="!user.isAuthenticated"
     >
       Login
     </button>
 
-    <div class="dropdown my-2 my-lg-0" v-else>
+    <div class="col-1 dropdown my-2 my-lg-0 mx-2" v-else>
       <div
         class="dropdown-toggle selectable"
         data-bs-toggle="dropdown"
@@ -19,10 +19,11 @@
           <img
             :src="account.picture || user.picture"
             alt="account photo"
-            height="40"
+            height="80"
+            width="80"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
+          <!-- <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span> -->
         </div>
       </div>
       <div

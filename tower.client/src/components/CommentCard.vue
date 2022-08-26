@@ -2,7 +2,7 @@
     <div class="row elevation-2">
         <div class="d-flex justify-content-between">
             <div class="col-3">
-                <img class="img-fluid" :src="comment.creator.picture" alt="">
+                <img class="img-fluid" :src="comment.creator.picture" alt="" :title="comment.creator.name">
             </div>
             <div class="col-5">
                 <p>{{comment.creator.name}}</p>

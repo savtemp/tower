@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class=" col-12 d-flex flex-column navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+      <div class="d-flex flex-column ">
+        <h1>Tower</h1>
       </div>
     </router-link>
     <button
@@ -19,19 +19,21 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link
+          <!-- <router-link
             :to="{ name: 'About' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
             About
-          </router-link>
+          </router-link> -->
         </li>
       </ul>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-event">
-        Create Event
-      </button>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <div>
+        <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#create-event">
+          Create Event
+        </button>
+      </div>
+        <!-- LOGIN COMPONENT HERE -->
+        <Login />
     </div>
   </nav>
 </template>
