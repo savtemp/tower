@@ -2,6 +2,7 @@ import { Auth0Provider } from "@bcwdev/auth0provider";
 import { commentsService } from "../services/CommentsService.js";
 import { ticketsService } from "../services/TicketsService.js";
 import { towerEventsService } from "../services/TowerEventsService.js";
+import { socketProvider } from "../SocketProvider.js";
 import BaseController from "../utils/BaseController.js";
 
 
@@ -23,6 +24,9 @@ export class TowerEventsController extends BaseController{
         try {
             req.body.creatorId = req.userInfo.id
             const event = await towerEventsService.create(req.body)
+
+            socketProvider.message('created:event', event)
+
             return res.send(event)
         } catch (error) {
             next(error)
