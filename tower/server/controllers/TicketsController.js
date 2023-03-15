@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { dbContext } from "../db/DbContext.js";
 import { ticketsService } from "../services/TicketsService.js";
+import { socketProvider } from "../SocketProvider.js";
 import BaseController from "../utils/BaseController.js";
 
 
@@ -18,6 +19,13 @@ export class TicketsController extends BaseController{
         try {
             req.body.accountId = req.userInfo.id
             let ticket = await ticketsService.create(req.body)
+
+            // @ts-ignore
+            socketProvider.messageUser(ticket.event.creatorId.toString(), 'toUser:createdTicket', ticket)
+            // @ts-ignore
+            socketProvider.messageRoom(ticket.eventId.toString(), 'created:ticket', ticket)
+
+
             return res.send(ticket)
         } catch (error) {
             next(error)

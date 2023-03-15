@@ -9,7 +9,7 @@ class CommentsService {
     async createComment(newComment){
         const res = await api.post(`api/comments`, newComment)
         logger.log('Creating a comment', res.data)
-        AppState.comments.push(res.data)
+        // AppState.comments.push(res.data)
     }
 
     async getCommentsByEventId(eventId){

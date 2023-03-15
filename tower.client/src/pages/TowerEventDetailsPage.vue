@@ -83,7 +83,7 @@
 
 <script>
 import { computed } from '@vue/reactivity';
-import { onMounted } from 'vue';
+import { onMounted, watchEffect, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { towerEventsService } from '../services/TowerEventsService.js';
@@ -94,6 +94,7 @@ import { commentsService } from '../services/CommentsService.js';
 import TicketCard from '../components/TicketCard.vue';
 import { ticketsService } from '../services/TicketsService.js';
 import { logger } from '../utils/Logger.js';
+import { socketService } from '../services/SocketService.js';
 
 export default {
     setup() {
@@ -121,11 +122,47 @@ export default {
                 Pop.error(error)
             }
         }
-        onMounted(() => {
-            getEventById();
-            getCommentsByEventId()
-            getEventTickets()
-        });
+
+        function joinRoom(){
+            try {
+                socketService.emit('join:room', {roomName: route.params.eventId})
+            } catch (error) {
+                console.error(error)
+                // @ts-ignore 
+                Pop.error(('[ERROR]'), error.message)
+            }
+        }
+
+        function leaveRoom(){
+            try {
+                socketService.emit('leave:room', {roomName: AppState.activeTowerEvent.id})
+            } catch (error) {
+                console.error(error)
+                // @ts-ignore 
+                Pop.error(('[ERROR]'), error.message)
+            }
+        }
+
+        watchEffect(() => {
+            if(route.params.eventId){
+                joinRoom()
+                getEventById()
+                getCommentsByEventId()
+                getEventTickets()
+            }
+        })
+
+        onUnmounted(() => {
+            // logger.log(route.params.eventId)
+            leaveRoom()
+        })
+
+        // onMounted(() => {
+        //     getEventById();
+        //     getCommentsByEventId()
+        //     getEventTickets()
+        // });
+
         return {
             event: computed(() => AppState.activeTowerEvent),
             comments: computed(() => AppState.comments),

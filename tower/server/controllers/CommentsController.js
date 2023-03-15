@@ -1,5 +1,6 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { commentsService } from "../services/CommentsService.js";
+import { socketProvider } from "../SocketProvider.js";
 import BaseController from "../utils/BaseController.js";
 
 
@@ -16,6 +17,9 @@ export class CommentsController extends BaseController{
         try {
             req.body.creatorId = req.userInfo.id
             let comment = await commentsService.create(req.body)
+                // @ts-ignore
+                socketProvider.messageRoom(comment.eventId.toString(), 'created:comment', comment)
+
             return res.send(comment)
         } catch (error) {
             next(error)
